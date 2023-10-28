@@ -1,10 +1,9 @@
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { ThemeProvider, CssBaseline } from "@mui/material";
-import { lightMode } from "@/styles/theme/lightMode";
+import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
+import { theme } from "@/src/theme";
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={lightMode}>
+    <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />
       <Component {...pageProps} />;
     </ThemeProvider>
