@@ -1,9 +1,16 @@
-import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
+import { Button, Box, Typography } from "@mui/material";
 export default function Home() {
-  return <>INIT</>;
+  return (
+    <>
+      <Button variant="contained" sx={{ backgroundColor: "primaryLight.main" }}>
+        asd
+      </Button>
+      <Box sx={{ display: "flex", gap: "12px" }}>
+        <Button variant="contained">asd</Button>
+        <Button variant="contained">asd</Button>
+      </Box>
+      <Typography>asd</Typography>
+    </>
+  );
 }
