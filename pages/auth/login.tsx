@@ -1,3 +1,4 @@
+import GradientCircle from "@/src/utils/GradientCircle";
 import {
   Avatar,
   Box,
@@ -8,11 +9,16 @@ import {
   Grid,
   Link,
   Paper,
+  Radio,
+  Switch,
   TextField,
+  ToggleButton,
   Typography,
 } from "@mui/material";
 import React from "react";
+import NextLink from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import Logo from "@/src/utils/logo";
 const Login = () => (
   <Grid container component="main" sx={{ height: "100vh" }}>
     <Grid
@@ -23,8 +29,27 @@ const Login = () => (
       component={Paper}
       elevation={6}
       square
-      px={"120px"}
+      sx={{
+        backgroundColor: "backgroundColor.light",
+      }}
     >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "24px",
+        }}
+      >
+        <Logo />
+        <Typography>
+          Dont have an account?
+          <Link href={"/auth/signup"} component={NextLink}>
+            {" "}
+            Sign up
+          </Link>
+        </Typography>
+      </Box>
       <Box
         sx={{
           my: 8,
@@ -32,6 +57,10 @@ const Login = () => (
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          px: {
+            xs: "12px",
+            md: "120px",
+          },
         }}
       >
         <Box
@@ -71,7 +100,7 @@ const Login = () => (
               color: "black",
               fontSize: "12px",
               fontWeight: 500,
-
+              backgroundColor: "white",
               borderColor: "black",
               "&:hover": {
                 borderColor: "primary",
@@ -101,6 +130,9 @@ const Login = () => (
             name="email"
             autoComplete="email"
             autoFocus
+            sx={{
+              backgroundColor: "white",
+            }}
           />
           <TextField
             margin="normal"
@@ -111,23 +143,37 @@ const Login = () => (
             type="password"
             id="password"
             autoComplete="current-password"
+            sx={{
+              backgroundColor: "white",
+            }}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <FormControlLabel
+              control={<Switch size="small" />}
+              label="Remember me"
+            />
+            <Typography fontSize={"14px"} color={"red"}>
+              Recover Password
+            </Typography>
+          </Box>
           <Button
             type="submit"
             fullWidth
             variant="outlined"
             sx={{
-              mt: 3,
+              mt: 5,
               mb: 2,
               py: 2,
               color: "black",
               fontSize: "12px",
               fontWeight: 500,
-
+              borderRadius: "10px",
               borderColor: "black",
               "&:hover": {
                 borderColor: "primary",
@@ -136,36 +182,60 @@ const Login = () => (
           >
             Log In
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-          {/* <Copyright sx={{ mt: 5 }} /> */}
         </Box>
       </Box>
     </Grid>
     <Grid
       item
       xs={false}
-      sm={3}
+      sm={false}
       md={5}
-      sx={{
-        backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: (t) =>
-          t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900],
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+      display={{
+        xs: "none",
+        sm: "flex",
+        md: "flex",
       }}
-    />
+      sx={{
+        backgroundColor: "black",
+        flexDirection: "column-reverse",
+        paddingY: "200px",
+        paddingX: "24px",
+        position: "relative",
+      }}
+    >
+      <Box
+        position={"absolute"}
+        sx={{
+          color: "red",
+          left: "-10px",
+          bottom: "200px",
+        }}
+      >
+        <GradientCircle />
+      </Box>
+      <Box
+        width={"100%"}
+        bgcolor={"rgba(255,242,242,0.13)"}
+        padding={"36px"}
+        sx={{
+          backdropFilter: "blur(50px)",
+          borderRadius: "10px",
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{
+            marginBottom: "24px",
+          }}
+        >
+          Top Notch Stock Resources
+        </Button>
+        <Typography fontSize={"16px"} fontWeight={"400"} color={"white"}>
+          Today, we create innovative solutions to the challenges that consumers
+          face in both their everyday lives and events.
+        </Typography>
+      </Box>
+    </Grid>
   </Grid>
 );
 
