@@ -1,13 +1,13 @@
-import Sidebar from "@/src/components/Sidebar";
-import React from "react";
+import BaseLayout from "@/src/layouts/baseLayout";
+import Header from "@/src/layouts/baseLayout/Header";
+import Sidebar from "@/src/layouts/baseLayout/Sidebar";
+import React, { ReactElement, ReactNode } from "react";
 
 const Dashboard = () => {
-  return (
-    <>
-      <Sidebar />
-      <div>Dashboard</div>
-    </>
-  );
+  return <>asd</>;
 };
 
+Dashboard.getLayout = (page: ReactNode) => {
+  return <BaseLayout>{page}</BaseLayout>;
+};
 export default Dashboard;
