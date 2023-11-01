@@ -1,14 +1,7 @@
-import {
-  Avatar,
-  Box,
-  FormControl,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import SearchBar from "@/src/components/SearchBar";
+import { Avatar, Box } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { AiOutlineDown } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import { RxCross1 } from "react-icons/rx";
 
 const Header = () => {
   function handleChange(
@@ -25,30 +18,7 @@ const Header = () => {
         alignItems: "center",
       }}
     >
-      <FormControl>
-        <TextField
-          size="small"
-          variant="outlined"
-          fullWidth
-          placeholder="Search"
-          onChange={handleChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <BiSearch />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                <RxCross1 />
-              </InputAdornment>
-            ),
-            sx: {
-              borderRadius: "8px",
-            },
-          }}
-        />
-      </FormControl>
+      <SearchBar handleChange={(e) => {}} />
       <Box
         sx={{
           display: "flex",
