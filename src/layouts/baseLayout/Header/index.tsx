@@ -1,16 +1,12 @@
-import {
-  Avatar,
-  Box,
-  FormControl,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import SearchBar from "@/src/components/SearchBar";
+import { Avatar, Box, IconButton } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { AiOutlineDown } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import { RxCross1 } from "react-icons/rx";
-
-const Header = () => {
+import { GiHamburgerMenu } from "react-icons/gi";
+interface HeaderProps {
+  toggleSidebar: () => void;
+}
+const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {}
@@ -18,37 +14,39 @@ const Header = () => {
   return (
     <Box
       sx={{
-        width: "100%",
         display: "flex",
         padding: "20px 36px",
         justifyContent: "space-between",
         alignItems: "center",
+        flexWrap: "wrap",
       }}
     >
-      <FormControl>
-        <TextField
-          size="small"
-          variant="outlined"
-          fullWidth
-          placeholder="Search"
-          onChange={handleChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <BiSearch />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                <RxCross1 />
-              </InputAdornment>
-            ),
-            sx: {
-              borderRadius: "8px",
-            },
-          }}
-        />
-      </FormControl>
+      <Box
+        sx={{
+          display: {
+            xs: "none",
+            sm: "none",
+            md: "block",
+            lg: "block",
+          },
+        }}
+      >
+        <SearchBar handleChange={(e) => {}} />
+      </Box>
+      <Box
+        sx={{
+          display: {
+            xs: "block",
+            sm: "block",
+            md: "none",
+            lg: "none",
+          },
+        }}
+      >
+        <IconButton onClick={() => toggleSidebar()}>
+          <GiHamburgerMenu />
+        </IconButton>
+      </Box>
       <Box
         sx={{
           display: "flex",
