@@ -17,12 +17,7 @@ const LeftSide = () => {
         flexDirection: "column",
         gap: "24px",
         flex: 1,
-        // backgroundColor: {
-        //   xs: "red",
-        //   sm: "green",
-        //   md: "black",
-        //   lg: "pink",
-        // },
+
         maxWidth: "100%",
       }}
     >

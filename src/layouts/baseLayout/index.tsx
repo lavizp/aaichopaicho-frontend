@@ -1,9 +1,12 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import Popup from "@/src/components/Popup";
 
 const BaseLayout = ({ children }: { children: React.ReactNode }) => {
+  const [open, setOpen] = useState(true);
+
   return (
     <Box
       sx={{
@@ -13,7 +16,7 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
         maxWidth: "100%",
       }}
     >
-      <Sidebar />
+      <Sidebar toggleSidebar={() => setOpen((value) => !value)} isOpen={open} />
       <Box
         sx={{
           flex: 1,
@@ -23,7 +26,7 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
           flexDirection: "column",
         }}
       >
-        <Header />
+        <Header toggleSidebar={() => setOpen((value) => !value)} />
         <Box
           sx={{
             height: "100%",
