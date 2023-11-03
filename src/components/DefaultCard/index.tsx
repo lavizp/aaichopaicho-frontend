@@ -1,10 +1,15 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box, BoxProps, SxProps } from "@mui/material";
+import React, { CSSProperties } from "react";
 interface DefaultCardProps {
   children: React.ReactNode;
   width?: string;
+  customSx?: SxProps;
 }
-const DefaultCard: React.FC<DefaultCardProps> = ({ children, width }) => {
+const DefaultCard: React.FC<DefaultCardProps> = ({
+  children,
+  width,
+  customSx,
+}) => {
   return (
     <Box
       sx={{
@@ -12,7 +17,7 @@ const DefaultCard: React.FC<DefaultCardProps> = ({ children, width }) => {
         backgroundColor: "white",
         borderRadius: "15px",
         boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-        width: width ? width : "100%",
+        ...customSx,
       }}
     >
       {children}

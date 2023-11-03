@@ -11,11 +11,11 @@ const Header = () => {
   return (
     <Box
       sx={{
-        width: "100%",
         display: "flex",
         padding: "20px 36px",
         justifyContent: "space-between",
         alignItems: "center",
+        flexWrap: "wrap",
       }}
     >
       <SearchBar handleChange={(e) => {}} />

@@ -73,6 +73,14 @@ const Sidebar = () => {
   }));
   return (
     <Drawer
+      sx={{
+        display: {
+          xs: "none",
+          sm: "none",
+          md: "block",
+          lg: "block",
+        },
+      }}
       variant="permanent"
       open={open}
       PaperProps={{

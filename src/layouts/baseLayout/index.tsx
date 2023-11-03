@@ -9,7 +9,8 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
       sx={{
         display: "flex",
         height: "100vh",
-        width: "100vw",
+        overflow: "clip",
+        maxWidth: "100%",
       }}
     >
       <Sidebar />
@@ -17,6 +18,7 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
         sx={{
           flex: 1,
           height: "100%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
         }}
@@ -24,13 +26,14 @@ const BaseLayout = ({ children }: { children: React.ReactNode }) => {
         <Header />
         <Box
           sx={{
+            height: "100%",
             backgroundColor: "backgroundColor.light",
-            overflowY: "scroll",
+            overflow: "scroll",
             padding: "20px 40px",
             flex: 1,
           }}
         >
-          {children}
+          <Box>{children}</Box>
         </Box>
       </Box>
     </Box>

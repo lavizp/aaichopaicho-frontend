@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import React from "react";
-import DefaultCard from "../Card";
+import DefaultCard from "../DefaultCard";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import SimpleDashboardCard from "./SimpleDashboardCard";
@@ -16,6 +16,14 @@ const LeftSide = () => {
         display: "flex",
         flexDirection: "column",
         gap: "24px",
+        flex: 1,
+        // backgroundColor: {
+        //   xs: "red",
+        //   sm: "green",
+        //   md: "black",
+        //   lg: "pink",
+        // },
+        maxWidth: "100%",
       }}
     >
       <DefaultCard>
@@ -25,6 +33,8 @@ const LeftSide = () => {
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
+            gap: "12px",
+            flexWrap: "wrap",
           }}
         >
           <Box>
@@ -57,7 +67,9 @@ const LeftSide = () => {
             >
               Add Payment
             </Button>
-            <BsThreeDots />
+            <IconButton>
+              <BsThreeDots />
+            </IconButton>
           </Box>
         </Box>
       </DefaultCard>
@@ -66,6 +78,13 @@ const LeftSide = () => {
           display: "flex",
           width: "100%",
           justifyContent: "space-between",
+          flexDirection: {
+            xs: "column",
+            sm: "column",
+            md: "row",
+            lg: "row",
+          },
+          gap: "12px",
         }}
       >
         <SimpleDashboardCard
@@ -88,88 +107,82 @@ const LeftSide = () => {
         />
       </Box>
       <DefaultCard>
-        <Box
+        <Typography
           sx={{
-            width: "100%",
+            fontSize: "20px",
+            fontWeight: "700",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "20px",
-              fontWeight: "700",
-            }}
-          >
-            Spending This Month
-          </Typography>
+          Spending This Month
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            gap: "36px",
+            paddingX: {
+              sm: "10px",
+              md: "10px",
+            },
+          }}
+        >
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
-              flexWrap: "wrap",
+              flexDirection: "column",
               justifyContent: "space-between",
-              gap: "36px",
-              paddingX: {
-                sm: "10px",
-                md: "100px",
-              },
+              gap: "12px",
+              flex: 1,
             }}
           >
+            <SpendingText name={"Shopping"} color={"chartLightPurple.main"} />
+            <SpendingText name={"Phone"} color={"primary.main"} />
+            <SpendingText name={"Personal"} color={"chartPurple.main"} />
+            <SpendingText name={"Other"} color={"chartBlue.main"} />
+          </Box>
+          <Box
+            sx={{
+              position: "relative",
+              width: "fit-content",
+            }}
+          >
+            <PieChart
+              series={[
+                {
+                  data: [
+                    { id: 0, value: 10 },
+                    { id: 1, value: 15 },
+                    { id: 2, value: 20 },
+                    { id: 3, value: 20 },
+                  ],
+                  innerRadius: 80,
+                  outerRadius: 100,
+                  paddingAngle: 1,
+                  cornerRadius: 0,
+                  startAngle: -88,
+                  endAngle: 360,
+                  cx: 120,
+                },
+              ]}
+              width={264}
+              height={264}
+            />
             <Box
+              position={"absolute"}
               sx={{
+                top: "38%",
+                left: "21%",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
-                gap: "12px",
-                flex: 1,
+                alignItems: "center",
               }}
             >
-              <SpendingText name={"Shopping"} color={"chartLightPurple.main"} />
-              <SpendingText name={"Phone"} color={"primary.main"} />
-              <SpendingText name={"Personal"} color={"chartPurple.main"} />
-              <SpendingText name={"Other"} color={"chartBlue.main"} />
-            </Box>
-            <Box
-              sx={{
-                position: "relative",
-                width: "fit-content",
-              }}
-            >
-              <PieChart
-                series={[
-                  {
-                    data: [
-                      { id: 0, value: 10 },
-                      { id: 1, value: 15 },
-                      { id: 2, value: 20 },
-                      { id: 3, value: 20 },
-                    ],
-                    innerRadius: 80,
-                    outerRadius: 120,
-                    paddingAngle: 1,
-                    cornerRadius: 0,
-                    startAngle: -88,
-                    endAngle: 360,
-                    cx: 120,
-                  },
-                ]}
-                width={264}
-                height={264}
-              />
-              <Box
-                position={"absolute"}
-                sx={{
-                  top: "38%",
-                  left: "21%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Typography fontSize={"30px"} fontWeight={"800"}>
-                  $138.00
-                </Typography>
-                <Typography fontSize={"14px"}>SPEND THIS MONTH</Typography>
-              </Box>
+              <Typography fontSize={"30px"} fontWeight={"800"}>
+                $138.00
+              </Typography>
+              <Typography fontSize={"14px"}>SPEND THIS MONTH</Typography>
             </Box>
           </Box>
         </Box>

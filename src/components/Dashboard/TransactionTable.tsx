@@ -25,9 +25,10 @@ const TransactionTable = () => {
       component={Paper}
       sx={{
         boxShadow: "none",
+        maxWidth: "100%",
       }}
     >
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell

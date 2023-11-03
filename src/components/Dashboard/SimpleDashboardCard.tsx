@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultCard from "../Card";
+import DefaultCard from "../DefaultCard";
 import { Box, Typography } from "@mui/material";
 import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 
@@ -17,7 +17,16 @@ const SimpleDashboardCard: React.FC<SimpleDashboardCardProps> = ({
   doesIncrease,
 }) => {
   return (
-    <DefaultCard width="fit-content">
+    <DefaultCard
+      width="fit-content"
+      customSx={{
+        width: {
+          xs: "100%",
+          sm: "100%",
+          md: "180px",
+        },
+      }}
+    >
       <Typography
         sx={{
           fontSize: "12px",
