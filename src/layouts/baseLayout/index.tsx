@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import Popup from "@/src/components/Popup";
 
 const BaseLayout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(true);

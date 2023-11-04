@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Popover from "@mui/material/Popover";
 import Paper from "@mui/material/Paper";
 import useDetectOutsideClick from "@/src/hooks/useDetectOutsideClicks";
+import useWindowDimensions from "@/src/hooks/useWindowDimensions";
 interface PopupProps {
   children: React.ReactNode;
   position: "left" | "center" | "right";
@@ -42,7 +43,7 @@ const Popup: React.FC<PopupProps> = ({
   closePopup,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
+  const { tabletView } = useWindowDimensions();
   const handleClose = () => {
     setAnchorEl(null);
   };

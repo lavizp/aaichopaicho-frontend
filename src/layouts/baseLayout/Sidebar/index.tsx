@@ -14,7 +14,6 @@ import MuiDrawer from "@mui/material/Drawer";
 import SidebarChildren from "./SidebarChildren";
 import Popup from "@/src/components/Popup";
 import useWindowDimensions from "@/src/hooks/useWindowDimensions";
-import useDetectOutsideClick from "@/src/hooks/useDetectOutsideClicks";
 interface SidebarProps {
   toggleSidebar: () => void;
   isOpen: boolean;
@@ -76,24 +75,17 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
       >
         <SidebarChildren isOpen={isOpen} toggleDrawer={toggleDrawer} />
       </Drawer>
-      <Box
-        sx={{
-          display: {
-            xs: "block",
-            sm: "block",
-            md: "none",
-            lg: "none",
-          },
-        }}
-      >
+      {tabletView && (
         <Popup
           position={"left"}
           isOpen={tabletView && isOpen}
-          closePopup={() => toggleDrawer()}
+          closePopup={() => {
+            toggleDrawer();
+          }}
         >
           <SidebarChildren isOpen={isOpen} toggleDrawer={toggleDrawer} />
         </Popup>
-      </Box>
+      )}
     </>
   );
 };

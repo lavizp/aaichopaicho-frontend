@@ -7,7 +7,8 @@ import {
   List,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BiHelpCircle, BiWallet } from "react-icons/bi";
 import { BsBarChart, BsPercent } from "react-icons/bs";
@@ -17,7 +18,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 import { PiPiggyBank } from "react-icons/pi";
 const sidebarItems = [
   { text: "Dashboard", icon: <LuLayoutDashboard />, id: "dashboard" },
-  { text: "Analitycs", icon: <BsBarChart />, id: "analitycs" },
+  { text: "Analitycs", icon: <BsBarChart />, id: "analytics" },
   { text: "Transactions", icon: <BiWallet />, id: "transactions" },
   { text: "Split Smart", icon: <BsPercent />, id: "split-smart" },
   { text: "EMI Calculator", icon: <PiPiggyBank />, id: "emi-calculator" },
@@ -35,8 +36,11 @@ const SidebarChildren: React.FC<SidebarChildrenProps> = ({
   isOpen,
   toggleDrawer,
 }) => {
-  const [activeItem, setActiveItem] = useState("home");
-
+  const [activeItem, setActiveItem] = useState("analytics");
+  useEffect(() => {
+    const parts = window.location.pathname.split("/");
+    setActiveItem(parts[parts.length - 1]);
+  }, []);
   const handleItemClick = (itemId: string) => {
     setActiveItem(itemId);
   };
@@ -72,24 +76,29 @@ const SidebarChildren: React.FC<SidebarChildrenProps> = ({
             }}
           >
             {sidebarItems.map((item) => (
-              <Box
+              <Link
+                href={item.id}
                 key={item.id}
-                sx={{
-                  width: "100%",
-                  paddingY: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                  gap: "8px",
-                  cursor: "pointer",
-                  color: item.id == activeItem ? "white" : "grey",
-                  fontSize: "16px",
-                }}
-                onClick={() => handleItemClick(item.id)}
+                style={{ textDecoration: "none" }}
               >
-                {item.icon}
-                {isOpen && item.text}
-              </Box>
+                <Box
+                  sx={{
+                    width: "100%",
+                    paddingY: "12px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    gap: "8px",
+                    cursor: "pointer",
+                    color: item.id == activeItem ? "white" : "grey",
+                    fontSize: "16px",
+                  }}
+                  onClick={() => handleItemClick(item.id)}
+                >
+                  {item.icon}
+                  {isOpen && item.text}
+                </Box>
+              </Link>
             ))}
             <Divider sx={{ my: 1, backgroundColor: "gray" }} />
             {secondarySidebarItems.map((item) => (
