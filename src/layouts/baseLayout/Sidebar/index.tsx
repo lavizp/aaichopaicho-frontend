@@ -1,13 +1,5 @@
-import {
-  Box,
-  IconButton,
-  List,
-  Typography,
-  Divider,
-  styled,
-  Avatar,
-} from "@mui/material";
-import React, { useRef, useState } from "react";
+import { styled } from "@mui/material";
+import React from "react";
 
 import MuiDrawer from "@mui/material/Drawer";
 
@@ -20,10 +12,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
-  const toggleDrawer = () => {
-    toggleSidebar();
-  };
-
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
   })(({ theme, open }) => ({
@@ -53,38 +41,31 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
   const { tabletView } = useWindowDimensions();
   return (
     <>
-      <Drawer
-        sx={{
-          display: {
-            xs: "none",
-            sm: "none",
-            md: "block",
-            lg: "block",
-          },
-        }}
-        variant="permanent"
-        open={isOpen}
-        PaperProps={{
-          sx: {
-            backgroundColor: "#181E09",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "space-between",
-          },
-        }}
-      >
-        <SidebarChildren isOpen={isOpen} toggleDrawer={toggleDrawer} />
-      </Drawer>
-      {tabletView && (
+      {tabletView ? (
         <Popup
           position={"left"}
-          isOpen={tabletView && isOpen}
+          isOpen={isOpen}
           closePopup={() => {
-            toggleDrawer();
+            toggleSidebar();
           }}
         >
-          <SidebarChildren isOpen={isOpen} toggleDrawer={toggleDrawer} />
+          <SidebarChildren isOpen={isOpen} toggleDrawer={toggleSidebar} />
         </Popup>
+      ) : (
+        <Drawer
+          variant="permanent"
+          open={isOpen}
+          PaperProps={{
+            sx: {
+              backgroundColor: "#181E09",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "space-between",
+            },
+          }}
+        >
+          <SidebarChildren isOpen={isOpen} toggleDrawer={toggleSidebar} />
+        </Drawer>
       )}
     </>
   );

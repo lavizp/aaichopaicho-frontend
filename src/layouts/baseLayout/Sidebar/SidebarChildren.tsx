@@ -16,6 +16,7 @@ import { FiSettings } from "react-icons/fi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlineSecurity } from "react-icons/md";
 import { PiPiggyBank } from "react-icons/pi";
+import useWindowDimensions from "@/src/hooks/useWindowDimensions";
 const sidebarItems = [
   { text: "Dashboard", icon: <LuLayoutDashboard />, id: "dashboard" },
   { text: "Analitycs", icon: <BsBarChart />, id: "analytics" },
@@ -44,6 +45,7 @@ const SidebarChildren: React.FC<SidebarChildrenProps> = ({
   const handleItemClick = (itemId: string) => {
     setActiveItem(itemId);
   };
+  const { tabletView } = useWindowDimensions();
   return (
     <>
       <Box>
@@ -90,8 +92,17 @@ const SidebarChildren: React.FC<SidebarChildrenProps> = ({
                     justifyContent: "flex-start",
                     gap: "8px",
                     cursor: "pointer",
-                    color: item.id == activeItem ? "white" : "grey",
+                    color: tabletView
+                      ? "black"
+                      : item.id == activeItem
+                      ? "white"
+                      : "grey",
                     fontSize: "16px",
+                    fontWeight: tabletView
+                      ? item.id == activeItem
+                        ? 550
+                        : 500
+                      : 500,
                   }}
                   onClick={() => handleItemClick(item.id)}
                 >
