@@ -1,30 +1,17 @@
-import {
-  Box,
-  IconButton,
-  List,
-  Typography,
-  Divider,
-  styled,
-  Avatar,
-} from "@mui/material";
-import React, { useRef, useState } from "react";
+import { styled } from "@mui/material";
+import React from "react";
 
 import MuiDrawer from "@mui/material/Drawer";
 
 import SidebarChildren from "./SidebarChildren";
 import Popup from "@/src/components/Popup";
 import useWindowDimensions from "@/src/hooks/useWindowDimensions";
-import useDetectOutsideClick from "@/src/hooks/useDetectOutsideClicks";
 interface SidebarProps {
   toggleSidebar: () => void;
   isOpen: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
-  const toggleDrawer = () => {
-    toggleSidebar();
-  };
-
   const Drawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
   })(({ theme, open }) => ({
@@ -54,46 +41,32 @@ const Sidebar: React.FC<SidebarProps> = ({ toggleSidebar, isOpen }) => {
   const { tabletView } = useWindowDimensions();
   return (
     <>
-      <Drawer
-        sx={{
-          display: {
-            xs: "none",
-            sm: "none",
-            md: "block",
-            lg: "block",
-          },
-        }}
-        variant="permanent"
-        open={isOpen}
-        PaperProps={{
-          sx: {
-            backgroundColor: "#181E09",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "space-between",
-          },
-        }}
-      >
-        <SidebarChildren isOpen={isOpen} toggleDrawer={toggleDrawer} />
-      </Drawer>
-      <Box
-        sx={{
-          display: {
-            xs: "block",
-            sm: "block",
-            md: "none",
-            lg: "none",
-          },
-        }}
-      >
+      {tabletView ? (
         <Popup
           position={"left"}
-          isOpen={tabletView && isOpen}
-          closePopup={() => toggleDrawer()}
+          isOpen={isOpen}
+          closePopup={() => {
+            toggleSidebar();
+          }}
         >
-          <SidebarChildren isOpen={isOpen} toggleDrawer={toggleDrawer} />
+          <SidebarChildren isOpen={isOpen} toggleDrawer={toggleSidebar} />
         </Popup>
-      </Box>
+      ) : (
+        <Drawer
+          variant="permanent"
+          open={isOpen}
+          PaperProps={{
+            sx: {
+              backgroundColor: "#181E09",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "space-between",
+            },
+          }}
+        >
+          <SidebarChildren isOpen={isOpen} toggleDrawer={toggleSidebar} />
+        </Drawer>
+      )}
     </>
   );
 };

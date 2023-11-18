@@ -1,8 +1,6 @@
-import React, { useRef, useState } from "react";
-import Button from "@mui/material/Button";
+import React from "react";
 import Popover from "@mui/material/Popover";
 import Paper from "@mui/material/Paper";
-import useDetectOutsideClick from "@/src/hooks/useDetectOutsideClicks";
 interface PopupProps {
   children: React.ReactNode;
   position: "left" | "center" | "right";
@@ -41,39 +39,24 @@ const Popup: React.FC<PopupProps> = ({
   isOpen,
   closePopup,
 }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
   const handleClose = () => {
-    setAnchorEl(null);
+    closePopup();
   };
-  const popupRef = useRef<HTMLDivElement>(null);
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-  useDetectOutsideClick({
-    ref: popupRef,
-    callback: () => {
-      closePopup();
-    },
-  });
   return (
-    <div ref={popupRef}>
-      <Popover
-        id={id}
-        open={isOpen}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: position == "center" ? "center" : "top",
-          horizontal: position,
-        }}
-        transformOrigin={{
-          vertical: position == "center" ? "center" : "top",
-          horizontal: position,
-        }}
-      >
-        <Paper style={getPopupStyles(position)}>{children}</Paper>
-      </Popover>
-    </div>
+    <Popover
+      open={isOpen}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: position == "center" ? "center" : "top",
+        horizontal: position,
+      }}
+      transformOrigin={{
+        vertical: position == "center" ? "center" : "top",
+        horizontal: position,
+      }}
+    >
+      <Paper style={getPopupStyles(position)}>{children}</Paper>
+    </Popover>
   );
 };
 
