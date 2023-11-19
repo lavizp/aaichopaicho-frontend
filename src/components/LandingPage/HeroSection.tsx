@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Link, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
@@ -42,16 +42,22 @@ const HeroSection = () => {
           made simple
         </Typography>
         <Typography>The most practical financial tracking app</Typography>
-        <Button
-          variant="contained"
-          sx={{
-            color: "white",
-            backgroundColor: "secondary.main",
-            mt: "12px",
-          }}
+        <Link
+          href={"/auth/signup"}
+          key={"/auth/signup"}
+          style={{ textDecoration: "none" }}
         >
-          Register
-        </Button>
+          <Button
+            variant="contained"
+            sx={{
+              color: "white",
+              backgroundColor: "secondary.main",
+              mt: "12px",
+            }}
+          >
+            Register
+          </Button>
+        </Link>
       </Box>
       <Image
         src={"/hero-banner.png"}

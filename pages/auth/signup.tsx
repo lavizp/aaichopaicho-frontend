@@ -39,7 +39,7 @@ const signup = () => {
           padding: "24px",
         }}
       >
-        <Logo />
+        <Logo height={50} />
         <Box
           display={{
             xs: "none",

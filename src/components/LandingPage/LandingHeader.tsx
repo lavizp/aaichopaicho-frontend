@@ -1,5 +1,5 @@
 import Logo from "@/src/utils/logo";
-import { Button, Stack } from "@mui/material";
+import { Button, Link, Stack } from "@mui/material";
 import React from "react";
 
 const LandingHeader = () => {
@@ -15,15 +15,21 @@ const LandingHeader = () => {
       }}
     >
       <Logo height={18} />
-      <Button
-        variant="contained"
-        sx={{
-          color: "white",
-          backgroundColor: "secondary.main",
-        }}
+      <Link
+        href={"/auth/login"}
+        key={"/auth/login"}
+        style={{ textDecoration: "none" }}
       >
-        Login
-      </Button>
+        <Button
+          variant="contained"
+          sx={{
+            color: "white",
+            backgroundColor: "secondary.main",
+          }}
+        >
+          Login
+        </Button>
+      </Link>
     </Stack>
   );
 };
