@@ -41,7 +41,7 @@ const Login = () => (
           padding: "24px",
         }}
       >
-        <Logo />
+        <Logo height={50} />
         <Typography>
           Dont have an account?
           <Link href={"/auth/signup"} component={NextLink}>
