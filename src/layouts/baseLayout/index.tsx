@@ -1,10 +1,19 @@
 import { Box } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import { useAuth } from "@/src/firebase/authContext";
+import { useRouter } from "next/router";
 
 const BaseLayout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(true);
+  const { currentUser } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/auth/login");
+    }
+  }, []);
 
   return (
     <Box
