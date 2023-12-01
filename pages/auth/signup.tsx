@@ -1,18 +1,12 @@
 import React from "react";
 import {
-  Avatar,
   Box,
   Button,
-  Checkbox,
   Divider,
-  FormControlLabel,
   Grid,
   Link,
   Paper,
-  Radio,
-  Switch,
   TextField,
-  ToggleButton,
   Typography,
 } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
@@ -20,8 +14,40 @@ import { BiSolidZap } from "react-icons/bi";
 import GradientCircle from "@/src/utils/GradientCircle";
 import NextLink from "next/link";
 import Logo from "@/src/utils/logo";
+import { useAuth } from "@/src/firebase/authContext";
+import { Form, useFormik } from "formik";
+import * as yup from "yup";
 
-const signup = () => {
+const validationSchema = yup.object({
+  name: yup.string(),
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords must match"),
+});
+
+const Signup = () => {
+  const { signUp } = useAuth();
+  const formik = useFormik({
+    initialValues: {
+      name: "asd",
+      email: "foobar@example.com",
+      password: "asdasdasdasd",
+      confirmPassword: "asdasdasdasd",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      await signUp(values);
+      // alert(JSON.stringify(values));
+    },
+  });
   return (
     <Grid
       container
@@ -199,80 +225,111 @@ const signup = () => {
             Or continue with
           </Divider>
 
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Full name"
-              name="name"
-              autoComplete="text"
-              autoFocus
-              sx={{
-                backgroundColor: "white",
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              sx={{
-                backgroundColor: "white",
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              sx={{
-                backgroundColor: "white",
-              }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="confirm-password"
-              label="Confirm Password"
-              type="password"
-              id="confirm-password"
-              autoComplete="current-password"
-              sx={{
-                backgroundColor: "white",
-              }}
-            />
+          <Box sx={{ mt: 1 }}>
+            <form onSubmit={formik.handleSubmit}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Full name"
+                name="name"
+                autoComplete="text"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+                autoFocus
+                sx={{
+                  backgroundColor: "white",
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+                autoComplete="email"
+                autoFocus
+                sx={{
+                  backgroundColor: "white",
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+                sx={{
+                  backgroundColor: "white",
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                id="confirmPassword"
+                autoComplete="current-password"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.confirmPassword &&
+                  Boolean(formik.errors.confirmPassword)
+                }
+                helperText={
+                  formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
+                }
+                sx={{
+                  backgroundColor: "white",
+                }}
+              />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 5,
-                mb: 2,
-                py: 2,
-                color: "black",
-                fontSize: "12px",
-                fontWeight: 500,
-                borderRadius: "10px",
-                borderColor: "black",
-                "&:hover": {
-                  borderColor: "primary",
-                },
-              }}
-            >
-              Create Account
-            </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 5,
+                  mb: 2,
+                  py: 2,
+                  color: "black",
+                  fontSize: "12px",
+                  fontWeight: 500,
+                  borderRadius: "10px",
+                  borderColor: "black",
+                  "&:hover": {
+                    borderColor: "primary",
+                  },
+                }}
+                type="submit"
+              >
+                Create Account
+              </Button>
+            </form>
+
             <Typography fontSize={"14px"} fontWeight={300} textAlign={"center"}>
               By continuing you indicate that you read and agreed to the Terms
               of Use
@@ -284,4 +341,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;

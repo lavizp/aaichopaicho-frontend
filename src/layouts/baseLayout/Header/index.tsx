@@ -1,8 +1,9 @@
 import SearchBar from "@/src/components/SearchBar";
-import { Avatar, Box, IconButton } from "@mui/material";
+import { Avatar, Box, IconButton, Popover, Typography } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import ProfilePopover from "./ProfilePopover";
 interface HeaderProps {
   toggleSidebar: () => void;
 }
@@ -10,6 +11,21 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {}
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <Box
@@ -61,7 +77,21 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
             height: 24,
           }}
         />
-        <AiOutlineDown />
+        <IconButton aria-describedby={id} onClick={handleClick}>
+          <AiOutlineDown />
+        </IconButton>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+        >
+          <ProfilePopover />
+        </Popover>
       </Box>
     </Box>
   );
