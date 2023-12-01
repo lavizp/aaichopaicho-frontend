@@ -57,6 +57,7 @@ export function AuthProvider({ children }: any) {
     return signInWithEmailAndPassword(auth, email, password);
   }
   function signOut() {
+    setCurrentUser(null);
     return fbSignOut(auth);
   }
 
